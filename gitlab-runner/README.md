@@ -12,6 +12,14 @@ helm search repo -l gitlab/gitlab-runner
 
 Перед встановленням відредагуємо файл з налаштуваннями ```values.yaml```
 
+Якщо будемо використовувати спільний кеш, встановимо секрети
+```bash
+kubectl create secret generic s3accesscache \
+    --from-literal=accesskey="YourAccessKey" \
+    --from-literal=secretkey="YourSecretKey" \
+    -n gitlab-runner
+```
+
 * необхідно вказати токен (токен може бути як груповий так і на репозиторій) змінна `runnerRegistrationToken`
   * Якщо груповий то переходимо в групу ``CI\CD => Runners => Register a group runner``
   * В другому випадку переходимо в репозиторій ``Settings => CI/CD => Runners => Project runners => And this registration token``

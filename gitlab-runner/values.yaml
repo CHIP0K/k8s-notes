@@ -16,10 +16,19 @@ runners:
         cpu_limit = "1000m"
         memory_limit = "2048Mi"
         memory_request = "1024Mi"
-  tags: 
-    - k8s
-    - prod
-    - expertchat
+      [runners.cache]
+        Type = "s3"
+        Path = "gitlab-runner-expertchat"
+        Shared = true
+        [runners.cache.s3]
+          ServerAddress = "nyc3.digitaloceanspaces.com"
+          BucketName = "db.backup"
+          BucketLocation = ""
+          Insecure = false
+          AuthenticationType = "access-key"
+  cache:
+      secretName: s3accesscache
+  tags: k8s, prod, expertchat, docker
 
 ## For RBAC support:
 rbac:
